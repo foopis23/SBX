@@ -1,4 +1,3 @@
-// this probably example of coupling.Not sure if its worth
 import * as Physics from "../physics";
 import * as Graphics from "../graphics";
 
