@@ -13,12 +13,27 @@
       height: 100%;
       margin: 0;
     }
+
+    .panel {
+      padding: 1rem;
+      background-color: rgba(50, 50, 50, 0.5);
+      color: #efefef;
+      font-family: monospace;
+      border-radius: 4px;
+    }
   </style>
 </head>
 
 <body>
   <div id="app"></div>
   <script type="module" src="./main.ts"></script>
+  <div style="position:absolute;top:16px;right:16px;z-index:10;" class="panel">
+    <strong>Controls:</strong><br />
+    Left Mouse - Orbit Camera<br />
+    Right Mouse - Pan Camera<br />
+    Scroll - Zoom In/Out<br />
+    Space - Jumble Cubes<br />
+  </div>
 </body>
 
 </html>
