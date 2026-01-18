@@ -15,8 +15,9 @@
     "@types/three": "^0.182",
     "eslint": "^9.39.2",
     "globals": "^17.0.0",
-    "typescript-eslint": "^8.53.0",
-    "jiti": "^2.6.1"
+    "jiti": "^2.6.1",
+    "prettier": "3.8.0",
+    "typescript-eslint": "^8.53.0"
   },
   "peerDependencies": {
     "typescript": "^5",
