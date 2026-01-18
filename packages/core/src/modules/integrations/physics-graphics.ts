@@ -9,15 +9,17 @@ function createMeshFromCollider(collider: Physics.RAPIER.Collider, options: { co
 	switch (collider.shape.type) {
 		case Physics.RAPIER.ShapeType.Ball:
 			return new Graphics.THREE.Mesh(
-				new Graphics.THREE.SphereGeometry((collider.shape as any).radius),
+				new Graphics.THREE.SphereGeometry((collider.shape as Physics.RAPIER.Ball).radius),
 				new Graphics.THREE.MeshBasicMaterial({ color: color, wireframe: true })
 			);
 		case Physics.RAPIER.ShapeType.Cuboid:
-			const halfExtents = (collider.shape as any).halfExtents;
-			return new Graphics.THREE.Mesh(
-				new Graphics.THREE.BoxGeometry(halfExtents.x * 2, halfExtents.y * 2, halfExtents.z * 2),
-				new Graphics.THREE.MeshBasicMaterial({ color: color, wireframe: true })
-			);
+			{
+				const halfExtents = (collider.shape as Physics.RAPIER.Cuboid).halfExtents;
+				return new Graphics.THREE.Mesh(
+					new Graphics.THREE.BoxGeometry(halfExtents.x * 2, halfExtents.y * 2, halfExtents.z * 2),
+					new Graphics.THREE.MeshBasicMaterial({ color: color, wireframe: true })
+				);
+			}
 		default:
 			throw new Error("Collider shape type not supported for debug mesh");
 	}
