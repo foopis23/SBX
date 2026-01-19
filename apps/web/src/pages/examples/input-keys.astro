@@ -1,0 +1,20 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import exampleCode from '../../assets/examples/input-keys?raw'
+import Example from '../../components/example.astro'
+---
+
+<StarlightPage frontmatter={{ title: 'Example - Input Keys' }}>
+  <Example exampleCode={exampleCode}>
+    <h2>Controls</h2>
+    <ul>
+      <li>W - Move Up</li>
+      <li>A - Move Left</li>
+      <li>S - Move Down</li>
+      <li>D - Move Right</li>
+    </ul>
+    <span slot="script">
+      <script src="../../assets/examples/input-keys.ts" />
+    </span>
+  </Example>
+</StarlightPage>

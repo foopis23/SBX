@@ -1,0 +1,30 @@
+{
+  "name": "web",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.37.3",
+    "@dimforge/rapier3d-compat": "^0.19.3",
+    "@repo/sbx": "workspace:*",
+    "@types/three": "^0.182.0",
+    "astro": "^5.6.1",
+    "directed": "^0.1.6",
+    "koota": "^0.6.3",
+    "sharp": "^0.34.2",
+    "starlight-typedoc": "^0.21.5",
+    "three": "^0.182.0",
+    "typedoc": "^0.28.16",
+    "typedoc-plugin-markdown": "^4.9.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.2.4",
+    "vite-plugin-top-level-await": "^1.6.0",
+    "vite-plugin-wasm": "^3.5.0"
+  }
+}

@@ -12,7 +12,7 @@
     "@repo/sbx": "workspace:*",
     "typescript": "~5.9.3",
     "vite": "^7.2.4",
-    "@dimforge/rapier3d": "^0.19.3",
+    "@dimforge/rapier3d-compat": "^0.19.3",
     "@types/three": "^0.182.0",
     "directed": "^0.1.6",
     "koota": "^0.6.3",

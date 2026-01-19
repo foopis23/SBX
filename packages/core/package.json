@@ -23,9 +23,14 @@
   },
   "peerDependencies": {
     "typescript": "^5",
-    "@dimforge/rapier3d": "^0.19",
+    "@dimforge/rapier3d-compat": "^0.19",
     "directed": "^0.1",
     "koota": "^0.6",
     "three": "^0.182"
+  },
+  "dependencies": {
+    "starlight-typedoc": "^0.21.5",
+    "typedoc": "^0.28.16",
+    "typedoc-plugin-markdown": "^4.9.0"
   }
 }

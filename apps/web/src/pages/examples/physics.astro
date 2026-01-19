@@ -1,0 +1,20 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import exampleCode from '../../assets/examples/physics?raw'
+import Example from '../../components/example.astro'
+---
+
+<StarlightPage frontmatter={{ title: 'Example - Physics' }}>
+  <Example exampleCode={exampleCode}>
+    <h2>Controls</h2>
+    <ul>
+      <li>Left Mouse - Orbit Camera</li>
+      <li>Right Mouse - Pan Camera</li>
+      <li>Scroll - Zoom In/Out</li>
+      <li>Space - Jumble Cubes</li>
+    </ul>
+    <span slot="script">
+      <script src="../../assets/examples/physics.ts" />
+    </span>
+  </Example>
+</StarlightPage>

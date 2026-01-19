@@ -3,11 +3,38 @@ import * as THREE from "three";
 import { Game, Transform, type System } from "../core";
 import { GlobalNotFoundError } from "../errors/global-not-found-error";
 
+export class AutoScalingOrthographicCamera extends THREE.OrthographicCamera {
+  public readonly size: number;
+  public readonly canvas: HTMLCanvasElement;
+
+  constructor(size: number = 5, canvas: HTMLCanvasElement) {
+    super()
+    this.size = size;
+    this.canvas = canvas;
+
+    window.addEventListener('resize', () => {
+      this.handleResize()
+    })
+    this.handleResize()
+  }
+
+  handleResize() {
+    console.log(this.size)
+    const height = this.size;
+    const width = (this.canvas.width / this.canvas.height) * this.size;
+    this.left = width / -2
+    this.right = width / 2
+    this.top = height / -2
+    this.bottom = height / 2
+    this.updateProjectionMatrix()
+  }
+}
+
 const ModuleName = "Graphics";
 
 export * as THREE from "three";
 
-export const WindowSize = trait(() => ({
+export const CanvasSize = trait(() => ({
   width: window.innerWidth,
   height: window.innerHeight,
 }));
@@ -89,15 +116,13 @@ export const renderSystem: System = ({ game }) => {
   renderer.render(scene, camera);
 };
 
-export const fullScreenCanvasSystem: System = ({ game }) => {
-  const windowSize = game.world.get(WindowSize);
+export const updateCameraSizeSystem: System = ({ game }) => {
+  const canvasSize = game.world.get(CanvasSize);
   const renderer = game.world.get(GlobalRenderer);
-  const camera = game.world.get(GlobalCamera) as
-    | THREE.PerspectiveCamera
-    | undefined;
+  const camera = game.world.get(GlobalCamera);
 
-  if (!windowSize) {
-    throw new GlobalNotFoundError(WindowSize.name, ModuleName);
+  if (!canvasSize) {
+    throw new GlobalNotFoundError(CanvasSize.name, ModuleName);
   }
   if (!renderer) {
     throw new GlobalNotFoundError(GlobalRenderer.name, ModuleName);
@@ -106,38 +131,59 @@ export const fullScreenCanvasSystem: System = ({ game }) => {
     throw new GlobalNotFoundError(GlobalCamera.name, ModuleName);
   }
 
+  // check if the store canvas size is different then what it was before
   if (
-    windowSize.width !== window.innerWidth ||
-    windowSize.height !== window.innerHeight
+    canvasSize.width !== renderer.domElement.width ||
+    canvasSize.height !== renderer.domElement.height
   ) {
-    game.world.set(WindowSize, {
+    game.world.set(CanvasSize, {
       width: window.innerWidth,
       height: window.innerHeight,
     });
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    if (camera instanceof THREE.PerspectiveCamera) {
+      camera.aspect = renderer.domElement.clientWidth / renderer.domElement.clientHeight;
+      camera.updateProjectionMatrix();
+    }
+
+    // renderer.setSize(renderer.domElement.width, renderer.domElement.height);
   }
 };
 
-export function initDefault(game: Game) {
+export type GraphicsModuleOptions = {
+  canvas?: HTMLElement | null,
+  parent?: HTMLElement
+};
+
+export function initDefault(game: Game, options: GraphicsModuleOptions = {}) {
+  const { canvas, parent } = options;
+
+  if (canvas === null) {
+    throw new Error("Canvas cannot be null! This probably means your canvas element was not found")
+  }
+
   const renderer = new THREE.WebGLRenderer({
     antialias: true,
     powerPreference: "high-performance",
+    canvas: canvas
   });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
+
+  if (!canvas) {
+    (parent ?? document.body).appendChild(renderer.domElement);
+  }
+  renderer.setPixelRatio(window.devicePixelRatio)
 
   game.world.add(GlobalRenderer(renderer));
   game.world.add(
-    WindowSize({ width: window.innerWidth, height: window.innerHeight }),
+    CanvasSize({ width: renderer.domElement.clientWidth, height: renderer.domElement.clientHeight }),
   );
   game.world.add(GlobalScene(new THREE.Scene()));
+  
   game.world.add(
     GlobalCamera(
       new THREE.PerspectiveCamera(
         75,
-        window.innerWidth / window.innerHeight,
+        renderer.domElement.clientWidth / renderer.domElement.clientHeight,
         0.1,
         1000,
       ),
@@ -148,5 +194,5 @@ export function initDefault(game: Game) {
     .add(meshLifecycleSystem, { tag: "preUpdate" })
     .add(syncTransformToMeshSystem, { tag: "postUpdate" })
     .add(renderSystem, { tag: "render" })
-    .add(fullScreenCanvasSystem, { before: "render" });
+    .add(updateCameraSizeSystem, { before: "render" });
 }

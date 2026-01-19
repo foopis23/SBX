@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Input Keys Example - SBX</title>
+  <style>
+    html,
+    body {
+      overflow: hidden;
+      height: 100%;
+      margin: 0;
+    }
+
+    .panel {
+      padding: 1rem;
+      background-color: rgba(50, 50, 50, 0.5);
+      color: #efefef;
+      font-family: monospace;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="./main.ts"></script>
+  <div style="position:absolute;top:16px;right:16px;z-index:10;" class="panel">
+    <strong>Controls:</strong><br />
+    WASD - Move Cube<br />
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+---
+title: Getting Started
+description: A quickstart to making games with SBX.
+---
+import { Aside } from '@astrojs/starlight/components'
+
+<Aside type="danger">SBX is still in early development. There may be significant API changes in future releases!</Aside>
+
+Guides lead a user through a specific task they want to accomplish, often with a sequence of steps.
+Writing a good guide requires thinking about what your users are trying to do.
+
+## Installation
+Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo totam, quis doloribus accusantium eligendi ratione eveniet harum pariatur vitae, temporibus nesciunt, expedita est architecto quaerat sed a mollitia ipsa consequatur!
+
+## Quickstart
+### Setting Up Empty Game
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SBX Game Quickstart</title>
+
+	<style>
+		html,body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
+
+		canvas {
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		import { Game } from '@repo/sbx';
+
+		const game = new Game();
+		game.start()
+	</script>
+</body>
+</html>
+```
+
+### Initialize Core Modules (as necessary)
+```diff
+-		import { Game } from '@repo/sbx';
++		import {
++			Game,
++			Graphics,
++			// Physics,
++			// Audio
++		} from '@repo/sbx';
+
+		const game = new Game();
++		Graphics.initDefault(game);
++		// Physics.initDefault(game);
++		// Audio.initDefault(game);
+		
+		game.start();
+```
+
+### Spawn a Cube
+```diff
+		import {
+			Game,
+			Graphics,
+			// Physics,
+			// Audio,
++			Transform
+		} from '@repo/sbx';
+
+		const game = new Game();
+		Graphics.initDefault(game);
+		// Physics.initDefault(game);
+		// Audio.initDefault(game);
+
+-		game.start()
++		game.start(() => {
++			game.world.spawn(
++				Transform(),
++				Graphics.Mesh(
++					new Graphics.Three.Mesh(
++						new Graphics.Three.BoxGeometry(1, 1, 1),
++						new Graphics.Three.MeshBasicMaterial({
++							color: 0xFF0000
++						})
++					)
++				)
++			)
++		})
+```
+
+### Add a System to Rotate All Objects
+```diff
+		import {
+			Game,
+			Graphics,
+			// Physics,
+			// Audio,
+			Transform
+		} from '@repo/sbx';
+
+		const game = new Game();
+		Graphics.initDefault(game);
+		// Physics.initDefault(game);
+		// Audio.initDefault(game);
+
++		// spin all objects system
++		game.update.add(({game, delta}) => {
++			game.world.query(Transform).updateEach(([transform]) => {
++				transform.rotation.x += delta * 2
++				transform.rotation.y += delta * 2
++				transform.rotation.z += delta * 2
++			})
++		})
+
+		game.start(() => {
+			game.world.spawn(
+				Transform(),
+				Graphics.Mesh(
+					new Graphics.Three.Mesh(
+						new Graphics.Three.BoxGeometry(1, 1, 1),
+						new Graphics.Three.MeshBasicMaterial({
+							color: 0xFF0000
+						})
+					)
+				)
+			)
+		})
+```
+## Further reading
+
+- Read [about koota](https://github.com/pmndrs/koota). Koota is the ECS framework SBX uses.
+- Read [about directed]('https://github.com/pmndrs/directed'). Directed is the Scheduler SBX uses for system.
+- Read [about threejs]('https://threejs.org/'). ThreeJS is the graphics engine SBX uses.
+- Read [about rapier]('https://rapier.rs/docs/user_guides/javascript/getting_started_js'). Rapier is the Physics Engine SBX uses.

@@ -1,9 +1,9 @@
-import * as RAPIER from "@dimforge/rapier3d";
-export * as RAPIER from "@dimforge/rapier3d";
+import * as RAPIER from "@dimforge/rapier3d-compat";
 import { Transform, type Game, type System } from "../core";
 import { createAdded, createRemoved, trait, type Entity } from "koota";
 import { GlobalNotFoundError } from "../errors/global-not-found-error";
 
+export * as RAPIER from "@dimforge/rapier3d-compat";
 const moduleName = "Physics";
 
 //#region Traits

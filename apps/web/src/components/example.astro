@@ -1,0 +1,25 @@
+---
+import { Code } from '@astrojs/starlight/components';
+
+interface Props {
+  exampleCode: string;
+}
+
+const { exampleCode } = Astro.props;
+---
+<style>
+#canvas {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16 / 9;
+}
+</style>
+
+<canvas id="canvas"></canvas>
+
+<slot />
+
+<h2>Example Code</h2>
+<Code code={exampleCode} lang="ts" title="main.ts" mark={"highlights"}/>
+
+<slot name="script">
