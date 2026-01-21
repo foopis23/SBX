@@ -11,9 +11,14 @@ export class AutoScalingOrthographicCamera extends THREE.OrthographicCamera {
   public readonly size: number;
   public readonly canvas: HTMLCanvasElement;
 
-  constructor(size: number = 5, canvas: HTMLCanvasElement) {
+  constructor(size: number = 5, canvas?: HTMLCanvasElement) {
     super()
     this.size = size;
+
+    if (!canvas) {
+      throw new Error("Canvas element is required for AutoScalingOrthographicCamera")
+    }
+
     this.canvas = canvas;
 
     window.addEventListener('resize', () => {

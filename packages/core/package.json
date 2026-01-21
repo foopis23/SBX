@@ -6,6 +6,7 @@
     ".": "./dist/index.js"
   },
   "scripts": {
+    "dev": "tsc --watch",
     "build": "tsc",
     "lint": "eslint",
     "format": "npx prettier . --write",

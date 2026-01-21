@@ -50,7 +50,7 @@ game.update.add(({ game, delta }) => {
 game.start(() => {
 	// replace default camera with orthographic camera for 2D Top Down
 	const renderer = game.world.get(Graphics.GlobalRenderer);
-	const camera = new Graphics.AutoScalingOrthographicCamera(10, renderer?.domElement!)
+	const camera = new Graphics.AutoScalingOrthographicCamera(10, renderer?.domElement)
 	game.world.set(Graphics.GlobalCamera, camera)
 
 	camera.position.set(0, 0, 10)
