@@ -85,7 +85,7 @@ game.start(() => {
       { x: (Math.random() - 0.5) * 5, y: 5, z: (Math.random() - 0.5) * 5 },
       { x: 1, y: 1, z: 1 },
     );
-  }, 1000);
+  }, 500);
 });
 
 // spawn helpers
