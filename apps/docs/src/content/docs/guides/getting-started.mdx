@@ -2,51 +2,60 @@
 title: Getting Started
 description: A quickstart to making games with SBX.
 ---
-import { Aside } from '@astrojs/starlight/components'
 
-<Aside type="danger">SBX is still in early development. There may be significant API changes in future releases!</Aside>
+import { Aside } from "@astrojs/starlight/components";
+
+<Aside type="danger">
+  SBX is still in early development. There may be significant API changes in
+  future releases!
+</Aside>
 
 Guides lead a user through a specific task they want to accomplish, often with a sequence of steps.
 Writing a good guide requires thinking about what your users are trying to do.
 
 ## Installation
+
 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo totam, quis doloribus accusantium eligendi ratione eveniet harum pariatur vitae, temporibus nesciunt, expedita est architecto quaerat sed a mollitia ipsa consequatur!
 
 ## Quickstart
+
 ### Setting Up Empty Game
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>SBX Game Quickstart</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SBX Game Quickstart</title>
 
-	<style>
-		html,body {
-			margin: 0;
-			padding: 0;
-			height: 100%;
-		}
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
 
-		canvas {
-			width: 100%;
-			height: 100%;
-		}
-	</style>
-</head>
-<body>
-	<script>
-		import { Game } from '@repo/sbx';
+      canvas {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      import { Game } from "@repo/sbx";
 
-		const game = new Game();
-		game.start()
-	</script>
-</body>
+      const game = new Game();
+      game.start();
+    </script>
+  </body>
 </html>
 ```
 
 ### Initialize Core Modules (as necessary)
+
 ```diff
 -		import { Game } from '@repo/sbx';
 +		import {
@@ -60,11 +69,12 @@ Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo totam, quis dolor
 +		Graphics.initDefault(game);
 +		// Physics.initDefault(game);
 +		// Audio.initDefault(game);
-		
+
 		game.start();
 ```
 
 ### Spawn a Cube
+
 ```diff
 		import {
 			Game,
@@ -96,6 +106,7 @@ Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo totam, quis dolor
 ```
 
 ### Add a System to Rotate All Objects
+
 ```diff
 		import {
 			Game,
@@ -133,6 +144,7 @@ Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo totam, quis dolor
 			)
 		})
 ```
+
 ## Further reading
 
 - Read [about koota](https://github.com/pmndrs/koota). Koota is the ECS framework SBX uses.
