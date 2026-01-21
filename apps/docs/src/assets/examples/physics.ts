@@ -30,7 +30,7 @@ export const updateOrbitControlsSystem: System = ({ game }) => {
  * Jumbles all bodies with a random upward force when the user presses space
  */
 export const jumpPhysicsObjectsSystem: System = ({ game }) => {
-  if (game.input.isKeyJustPressed("Space")) {
+  if (game.input.isKeyJustPressed("Enter")) {
     game.world.query(Physics.RigidBody3D).updateEach(([rigidbody]) => {
       if (rigidbody.bodyType() != Physics.RAPIER.RigidBodyType.Dynamic) return;
 
