@@ -3,7 +3,7 @@ import { Transform, type Game, type System } from "../core";
 import { createAdded, createRemoved, trait, type Entity } from "koota";
 import { GlobalNotFoundError } from "../errors/global-not-found-error";
 
-export * as RAPIER from "@dimforge/rapier3d-compat";
+export { RAPIER };
 const moduleName = "Physics";
 
 //#region Traits
@@ -171,7 +171,8 @@ export function physicsSystem({ game }: { game: Game }) {
 
 // #region API
 
-export function initDefault(game: Game, gravity = { x: 0, y: -9.81, z: 0 }) {
+export async function initDefault(game: Game, gravity = { x: 0, y: -9.81, z: 0 }) {
+  await RAPIER.init();
   const physicsWorld = new RAPIER.World(gravity);
   game.world.add(GlobalPhysicsWorld(physicsWorld));
   game.fixedUpdate

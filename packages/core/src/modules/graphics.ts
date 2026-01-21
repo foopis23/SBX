@@ -3,6 +3,10 @@ import * as THREE from "three";
 import { Game, Transform, type System } from "../core";
 import { GlobalNotFoundError } from "../errors/global-not-found-error";
 
+export { THREE };
+
+const ModuleName = "Graphics";
+
 export class AutoScalingOrthographicCamera extends THREE.OrthographicCamera {
   public readonly size: number;
   public readonly canvas: HTMLCanvasElement;
@@ -30,9 +34,6 @@ export class AutoScalingOrthographicCamera extends THREE.OrthographicCamera {
   }
 }
 
-const ModuleName = "Graphics";
-
-export * as THREE from "three";
 
 export const CanvasSize = trait(() => ({
   width: window.innerWidth,

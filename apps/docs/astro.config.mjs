@@ -2,16 +2,23 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightTypeDoc, { typeDocSidebarGroup } from 'starlight-typedoc'
+import wasm from 'vite-plugin-wasm';
+import topLevelAwait from 'vite-plugin-top-level-await';
 
 
 // https://astro.build/config
 export default defineConfig({
-	// vite: {
-	// 	plugins: [
-	// 		wasm(),
-	// 		topLevelAwait()
-	// 	]
-	// },
+	vite: {
+		plugins: [
+			wasm(),
+			topLevelAwait(),
+		],
+		build: {
+			rollupOptions: {
+				treeshake: false,
+			}
+		}
+	},
 	integrations: [
 		starlight({
 			title: 'SBX',

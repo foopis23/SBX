@@ -2,9 +2,12 @@ import { OrbitControls as ThreeOrbitControls } from 'three/addons/controls/Orbit
 import { Graphics, Physics, Game, Transform, PhysicsGraphics, type System } from '@repo/sbx';
 import { trait } from 'koota';
 
+console.log(Physics.RAPIER);
+
 const game = new Game();
-Graphics.initDefault(game);
-Physics.initDefault(game);
+Graphics.initDefault(game, { canvas: document.getElementById('canvas') });
+await Physics.initDefault(game);
+
 
 export const OrbitControls = trait<() => ThreeOrbitControls>(() => null!)
 
